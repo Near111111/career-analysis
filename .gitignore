@@ -1,6 +1,10 @@
-# In CareerAnalysis folder, create .gitignore with this content:
+# Make sure .gitignore has these lines
+@"
 model/
 *.pkl
 __pycache__/
 *.pyc
-.DS_Store
+.env
+venv/
+env/
+"@ | Out-File -FilePath .gitignore -Encoding utf8
