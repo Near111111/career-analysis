@@ -21,7 +21,6 @@ def initialize_model():
             
             if result.returncode == 0:
                 print("✅ Model trained successfully!")
-                print(result.stdout)
             else:
                 print(f"❌ Training failed: {result.stderr}")
                 return None
@@ -226,7 +225,7 @@ if __name__ == '__main__':
         print("⚠️  WARNING: Model not loaded. Server may not work properly.")
     
     # Get port from environment variable (for deployment)
-    port = int(os.environ.get('PORT', 10000))
+    port = int(os.environ.get('PORT', 5000))
     
     print(f"🌐 Server running on: http://0.0.0.0:{port}")
     print("📋 API Endpoints:")
@@ -237,5 +236,6 @@ if __name__ == '__main__':
     print("   GET  /health           - Health check")
     print("="*60 + "\n")
     
-    # Run the app (gunicorn will use this in production)
-    app.run(host='0.0.0.0', port=port)
+    # Production vs Development
+    debug_mode = os.environ.get('FLASK_ENV') != 'production'
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)
